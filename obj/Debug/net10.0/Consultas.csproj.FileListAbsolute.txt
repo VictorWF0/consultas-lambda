@@ -1,0 +1,17 @@
+D:\Estudo C#\Consultas\bin\Debug\net10.0\Consultas.deps.json
+D:\Estudo C#\Consultas\bin\Debug\net10.0\Consultas.runtimeconfig.json
+D:\Estudo C#\Consultas\bin\Debug\net10.0\Consultas.dll
+D:\Estudo C#\Consultas\bin\Debug\net10.0\Consultas.pdb
+D:\Estudo C#\Consultas\bin\Debug\net10.0\Amazon.Lambda.Core.dll
+D:\Estudo C#\Consultas\bin\Debug\net10.0\Amazon.Lambda.Serialization.SystemTextJson.dll
+D:\Estudo C#\Consultas\obj\Debug\net10.0\Consultas.csproj.AssemblyReference.cache
+D:\Estudo C#\Consultas\obj\Debug\net10.0\Consultas.GeneratedMSBuildEditorConfig.editorconfig
+D:\Estudo C#\Consultas\obj\Debug\net10.0\Consultas.AssemblyInfoInputs.cache
+D:\Estudo C#\Consultas\obj\Debug\net10.0\Consultas.AssemblyInfo.cs
+D:\Estudo C#\Consultas\obj\Debug\net10.0\Consultas.csproj.CoreCompileInputs.cache
+D:\Estudo C#\Consultas\obj\Debug\net10.0\Consultas.csproj.Up2Date
+D:\Estudo C#\Consultas\obj\Debug\net10.0\Consultas.dll
+D:\Estudo C#\Consultas\obj\Debug\net10.0\refint\Consultas.dll
+D:\Estudo C#\Consultas\obj\Debug\net10.0\Consultas.pdb
+D:\Estudo C#\Consultas\obj\Debug\net10.0\Consultas.genruntimeconfig.cache
+D:\Estudo C#\Consultas\obj\Debug\net10.0\ref\Consultas.dll
