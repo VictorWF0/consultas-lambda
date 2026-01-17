@@ -1,6 +1,7 @@
+using System.Text.Json.Serialization;
+
 namespace Consultas.Models
 {
-    // Define os tipos de consulta possíveis
     public enum QueryType
     {
         MostRecent,
@@ -8,10 +9,9 @@ namespace Consultas.Models
         All
     }
 
-    // Modelo de entrada da Lambda
     public class QueryInputModel
     {
-        // Indica qual tipo de consulta será feita
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public QueryType Query { get; set; }
     }
 }
