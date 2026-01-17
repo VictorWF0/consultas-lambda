@@ -1,49 +1,129 @@
-# AWS Lambda Empty Function Project
+# Consultas - AWS Lambda DynamoDB Query Service
 
-This starter project consists of:
-* Function.cs - class file containing a class with a single function handler method
-* aws-lambda-tools-defaults.json - default argument settings for use with Visual Studio and command line deployment tools for AWS
+Este projeto é uma função AWS Lambda desenvolvida em .NET 10 para consultar dados armazenados no DynamoDB através de diferentes tipos de índices.
 
-You may also have a test project depending on the options selected.
+## Funcionalidades
 
-The generated function handler is a simple method accepting a string argument that returns the uppercase equivalent of the input string. Replace the body of this method, and parameters, to suit your needs. 
+O serviço permite realizar consultas no DynamoDB com os seguintes tipos:
+- **MostRecent**: Retorna os dados mais recentes
+- **Oldest**: Retorna os dados mais antigos  
+- **All**: Retorna todos os dados disponíveis
 
-## Here are some steps to follow from Visual Studio:
+## Estrutura do Projeto
 
-To deploy your function to AWS Lambda, right click the project in Solution Explorer and select *Publish to AWS Lambda*.
-
-To view your deployed function open its Function View window by double-clicking the function name shown beneath the AWS Lambda node in the AWS Explorer tree.
-
-To perform testing against your deployed function use the Test Invoke tab in the opened Function View window.
-
-To configure event sources for your deployed function, for example to have your function invoked when an object is created in an Amazon S3 bucket, use the Event Sources tab in the opened Function View window.
-
-To update the runtime configuration of your deployed function use the Configuration tab in the opened Function View window.
-
-To view execution logs of invocations of your function use the Logs tab in the opened Function View window.
-
-## Here are some steps to follow to get started from the command line:
-
-Once you have edited your template and code you can deploy your application using the [Amazon.Lambda.Tools Global Tool](https://github.com/aws/aws-extensions-for-dotnet-cli#aws-lambda-amazonlambdatools) from the command line.
-
-Install Amazon.Lambda.Tools Global Tools if not already installed.
 ```
-    dotnet tool install -g Amazon.Lambda.Tools
+Consultas/
+├── Function.cs                    # Handler principal da Lambda
+├── Models/
+│   └── QueryInputModel.cs        # Modelo de entrada com enum QueryType
+├── Services/
+│   ├── Dynamo/
+│   │   └── DynamoService.cs      # Serviço para interação com DynamoDB (em desenvolvimento)
+│   └── Secret/
+│       └── SecretService.cs      # Serviço para gerenciamento de secrets (em desenvolvimento)
+├── Consultas.csproj              # Configurações do projeto .NET
+└── aws-lambda-tools-defaults.json # Configurações padrão para deploy AWS
 ```
 
-If already installed check if new version is available.
-```
-    dotnet tool update -g Amazon.Lambda.Tools
+## Modelo de Entrada
+
+A função aceita um JSON com o seguinte formato:
+
+```json
+{
+  "Query": "MostRecent" | "Oldest" | "All"
+}
 ```
 
-Execute unit tests
-```
-    cd "Consultas/test/Consultas.Tests"
-    dotnet test
+## Status do Desenvolvimento
+
+🚧 **Projeto em desenvolvimento**
+
+- ✅ Estrutura básica da Lambda configurada
+- ✅ Modelo de entrada definido com enum QueryType
+- ✅ Handler principal implementado com logging básico
+- 🔄 DynamoService em desenvolvimento
+- 🔄 SecretService em desenvolvimento
+- ⏳ Implementação das consultas DynamoDB pendente 
+
+## Tecnologias Utilizadas
+
+- **.NET 10**: Framework principal
+- **AWS Lambda**: Plataforma de execução serverless
+- **Amazon DynamoDB**: Banco de dados NoSQL (integração pendente)
+- **AWS Secrets Manager**: Gerenciamento de credenciais (integração pendente)
+- **System.Text.Json**: Serialização JSON nativa
+
+## Configuração e Deploy
+
+### Deploy via Visual Studio
+
+Para fazer deploy da função para AWS Lambda, clique com o botão direito no projeto no Solution Explorer e selecione *Publish to AWS Lambda*.
+
+Para visualizar sua função deployada, abra a janela Function View clicando duas vezes no nome da função mostrado abaixo do nó AWS Lambda na árvore do AWS Explorer.
+
+Para testar sua função deployada, use a aba Test Invoke na janela Function View aberta.
+
+Para configurar fontes de eventos para sua função deployada, use a aba Event Sources na janela Function View.
+
+Para atualizar a configuração de runtime da sua função deployada, use a aba Configuration na janela Function View.
+
+Para visualizar logs de execução das invocações da sua função, use a aba Logs na janela Function View.
+
+### Deploy via Command Line
+
+Uma vez que você tenha editado seu código, pode fazer deploy da aplicação usando o [Amazon.Lambda.Tools Global Tool](https://github.com/aws/aws-extensions-for-dotnet-cli#aws-lambda-amazonlambdatools) via command line.
+
+Instalar Amazon.Lambda.Tools Global Tools se ainda não estiver instalado:
+```bash
+dotnet tool install -g Amazon.Lambda.Tools
 ```
 
-Deploy function to AWS Lambda
+Se já estiver instalado, verificar se há nova versão disponível:
+```bash
+dotnet tool update -g Amazon.Lambda.Tools
 ```
-    cd "Consultas/src/Consultas"
-    dotnet lambda deploy-function
+
+Executar testes unitários:
+```bash
+cd "Consultas/test/Consultas.Tests"
+dotnet test
 ```
+
+Deploy da função para AWS Lambda:
+```bash
+cd "Consultas/src/Consultas"
+dotnet lambda deploy-function
+```
+
+## Exemplo de Uso
+
+### Requisição para dados mais recentes:
+```json
+{
+  "Query": "MostRecent"
+}
+```
+
+### Requisição para dados mais antigos:
+```json
+{
+  "Query": "Oldest"
+}
+```
+
+### Requisição para todos os dados:
+```json
+{
+  "Query": "All"
+}
+```
+
+## Próximos Passos
+
+1. Implementar DynamoService com conexão ao DynamoDB
+2. Implementar SecretService para gerenciamento seguro de credenciais
+3. Adicionar lógica de consulta baseada no QueryType
+4. Implementar tratamento de erros e validações
+5. Adicionar testes unitários
+6. Configurar CI/CD pipeline
