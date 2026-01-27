@@ -1,4 +1,86 @@
-# Consultas - AWS Lambda DynamoDB Query Service
+# Lambda de Consultas DynamoDB - testeConsultas
+
+Esta lambda consulta uma tabela DynamoDB cujo nome está armazenado no AWS Secrets Manager.
+
+## Arquitetura
+
+```
+Models/
+├── UserInput.cs               # Modelo de entrada com enum para tipos de consulta
+└── Ticket.cs                  # Modelo que representa um ticket do DynamoDB
+
+Services/
+├── Dynamo/
+│   └── DynamoService.cs       # Serviço para consultas no DynamoDB
+└── Secret/
+    └── SecretService.cs       # Serviço para buscar secrets
+
+Function.cs                    # Handler principal da Lambda
+```
+
+## Funcionalidades
+
+### Tipos de Consulta Suportados
+
+- **MaisRecente**: Retorna o registro mais recente baseado no timestamp
+- **MaisAntigo**: Retorna o registro mais antigo baseado no timestamp  
+- **Todos**: Retorna todos os registros da tabela
+
+### Configuração
+
+- **Secret Name**: `secret_test_joao`
+- **Secret Key**: `table_name`
+- **Table Name**: `Joao_RegisterIncidents`
+
+## Exemplo de Uso
+
+### Input da Lambda
+```json
+{
+  "TipoConsulta": "MaisRecente"
+}
+```
+
+### Output da Lambda
+```json
+{
+  "tipoConsulta": "MaisRecente",
+  "tabela": "Joao_RegisterIncidents",
+  "dados": {
+    "TicketNumber": "INC24185396",
+    "Timestamp": "2025-12-30 09:15:32",
+    "AssignmentGroup": "IT_Support",
+    "Description": "Teste_Criação2",
+    "Name": "Victor",
+    "PhoneNumber": "+5567925090",
+    "ShortDescription": "Criação_Ticket2"
+  }
+}
+```
+
+## Estrutura da Tabela DynamoDB
+
+A tabela `Joao_RegisterIncidents` contém os seguintes campos:
+- `ticket_number` (String): Número do ticket
+- `timestamp` (String): Data e hora do registro
+- `assignment_group` (String): Grupo responsável
+- `description` (String): Descrição detalhada
+- `name` (String): Nome do solicitante
+- `phone_number` (String): Telefone do solicitante
+- `short_description` (String): Descrição resumida
+
+## Logs
+
+A lambda gera logs detalhados incluindo:
+- Tipo de consulta recebida
+- Nome da tabela recuperada do secret
+- Progresso da consulta (buscando registro mais recente/antigo/todos)
+- Confirmação de sucesso
+- Erros e stack traces em caso de falha
+
+## Namespace
+
+O projeto utiliza o namespace `testeConsultas` em todos os arquivos. - AWS Lambda DynamoDB Query Service
 
 Este projeto é uma função AWS Lambda desenvolvida em .NET 10 para consultar dados armazenados no DynamoDB através de diferentes tipos de índices.
 
